@@ -1,0 +1,48 @@
+* TODO PoC: Real-Time AI Assistant for GM
+In this one-week Proof of Concept, we’ll focus on the bare minimum for capturing voice input, generating AI suggestions, and displaying them in real time.
+
+** TODO Phase 1: Minimal Infrastructure & Project Setup
+*** TODO Create Local Dev Environment
+    - [ ] Initialize a new repository (GitHub or local)
+    - [ ] Configure a simple Node.js + Express backend
+    - [ ] Set up basic frontend framework (React or Next.js)
+*** TODO Install Dependencies
+    - [ ] Add `openai` or `azure/openai` client library
+    - [ ] Add `socket.io` (or similar) for WebSockets
+    - [ ] Add `dotenv` for environment variables
+
+** TODO Phase 2: Speech-to-Text & AI Integration
+*** TODO Implement Local Speech-to-Text
+    - [ ] Use Browser’s Web Speech API to capture live audio
+    - [ ] Transcribe GM’s speech to text in real time
+    - [ ] Send final transcripts to backend via REST or WebSockets
+*** TODO Connect to Azure OpenAI (GPT)
+    - [ ] Set up an Azure OpenAI resource (or use OpenAI API key)
+    - [ ] Write minimal prompt logic: “Given the GM said X, respond with a suggestion.”
+    - [ ] Return AI suggestion to backend
+
+** TODO Phase 3: Real-Time Updates to Frontend
+*** TODO Implement WebSockets on Backend
+    - [ ] Set up `/socket.io` or similar endpoint
+    - [ ] On receiving AI response, emit event with suggestion text
+*** TODO Display AI Suggestions in Frontend
+    - [ ] Connect React/Next.js to WebSocket endpoint
+    - [ ] Listen for `ai_response` events
+    - [ ] Render suggestions in a simple list or box
+
+** TODO Phase 4: Test & Validate
+*** TODO Local Testing
+    - [ ] Run backend on `localhost:5000`, frontend on `localhost:3000`
+    - [ ] Confirm real-time flow: Speak → Transcription → AI → Suggestion
+    - [ ] Verify suggestions appear without manual refresh
+*** TODO Basic Performance Check
+    - [ ] Ensure quick turnaround from speech to AI response
+    - [ ] Log latencies (time from speech end to suggestion received)
+
+** TODO Phase 5: Wrap-Up & Demo
+*** TODO Create Readme / Demo Video
+    - [ ] Add clear setup instructions in README
+    - [ ] Record a brief video or GIF demonstrating real-time suggestions
+*** TODO Gather Feedback
+    - [ ] Note any issues with speech accuracy or AI prompts
+    - [ ] Plan next steps (session memory, deeper context, etc.)
