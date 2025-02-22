@@ -2,37 +2,60 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { OpenAI } = require('openai');
+const http = require('http');
+const { Server } = require('socket.io');
 
 const app = express();
 const PORT = 5000;
 
 // Middleware
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(cors({ origin: 'http://localhost:5174', credentials: true }));
 app.use(express.json());
+
+// http server
+const server = http.createServer(app);
+
+// configure socket.io
+const io = new Server(server, {
+    cors: {
+	origin: 'http://localhost:5174',
+	methods: ['GET', 'POST'],
+	credentials: true,
+    }});
 
 // OpenAI Configuration
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Route to handle AI suggestions
-app.post('/api/suggest', async (req, res) => {
-  const { prompt } = req.body;
+io.on('connection', (socket) => {
+    console.log('New client connected:', socket.id);
 
-  try {
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4',
-      messages: [{ role: 'user', content: prompt }],
+    socket.on('send_prompt', async (prompt) => {
+	try {
+	    const response = await openai.chat.completions.create({
+		model: 'gpt-4',
+		messages: [{ role: 'user', content: prompt }]
+	    });
+
+	    socket.emit('ai_response', response.choices[0].message.content);
+	} catch (error) {
+	    console.error('error from OpenAI:', error);
+	    socket.emit('ai_response', 'Error generating suggestion.');
+	}
     });
 
-    res.json({ suggestion: response.choices[0].message.content });
-  } catch (error) {
-    console.error('Error from OpenAI:', error);
-    res.status(500).json({ error: 'Failed to get AI suggestion.' });
-  }
+    socket.on('disconnect', () => {
+	console.log('Client disconnected:', socket.id);
+    });
 });
 
-// Start Server
-app.listen(PORT, () => {
+//Start Server
+// app.listen(PORT, () => {
+//   console.log(`Server running on http://localhost:${PORT}`);
+// });
+
+server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
