@@ -3,16 +3,27 @@ import axios from 'axios';
 
 function App() {
   const [message, setMessage] = useState('');
+  const [input, setInput] = useState('');
 
-  useEffect(() => {
-    axios.get('http://localhost:5000/') // Adjust port if backend uses a different one
-      .then((response) => setMessage(response.data))
-      .catch((error) => console.error(error));
-  }, []);
+  const getSuggestion = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/suggest', { prompt: input });
+      setMessage(response.data.suggestion);
+    } catch (error) {
+      console.error('Error fetching suggestion:', error);
+    }
+  };
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <h1>AI Assistant Frontend</h1>
+      <h1>AI Assistant</h1>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Enter your prompt..."
+      />
+      <button onClick={getSuggestion}>Get Suggestion</button>
       <p>{message}</p>
     </div>
   );
