@@ -3,9 +3,9 @@ In this one-week Proof of Concept, we’ll focus on the bare minimum for capturi
 
 ** TODO Phase 1: Minimal Infrastructure & Project Setup
 *** TODO Create Local Dev Environment
-    - [ ] Initialize a new repository (GitHub or local)
-    - [ ] Configure a simple Node.js + Express backend
-    - [ ] Set up basic frontend framework (React or Next.js)
+    - [X] Initialize a new repository (GitHub or local)
+    - [X] Configure a simple Node.js + Express backend
+    - [X] Set up basic frontend framework (React or Next.js)
 *** TODO Install Dependencies
     - [ ] Add `openai` or `azure/openai` client library
     - [ ] Add `socket.io` (or similar) for WebSockets
