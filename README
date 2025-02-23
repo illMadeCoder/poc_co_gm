@@ -1,5 +1,4 @@
 * PoC: Real-Time AI Assistant for GM
-In this one-week Proof of Concept, we’ll focus on the bare minimum for capturing voice input, generating AI suggestions, and displaying them in real time.
 
 ** DONE Phase 1: Minimal Infrastructure & Project Setup
 *** DONE Create Local Dev Environment
@@ -12,7 +11,7 @@ In this one-week Proof of Concept, we’ll focus on the bare minimum for capturi
     - [X] Add `dotenv` for environment variables
 
 ** DONE Phase 2: Speech-to-Text & AI Integration
-*** Implement Local Speech-to-Text
+*** DONE Implement Local Speech-to-Text
     - [X] Use Browser’s Web Speech API to capture live audio
     - [X] Send final transcripts to backend via REST or WebSockets
 *** DONE Connect to Azure OpenAI (GPT)
@@ -31,6 +30,6 @@ In this one-week Proof of Concept, we’ll focus on the bare minimum for capturi
 *** DONE Local Testing
     - [X] Confirm real-time flow: Speak → Transcription → AI → Suggestion
     - [X] Verify suggestions appear without manual refresh
-*** TODO Basic Performance Check
+*** DONE Basic Performance Check
     - [X] Ensure quick turnaround from speech to AI response
-    - [ ] Log latencies (time from speech end to suggestion received)
+    - [X] Log latencies (time from speech end to suggestion received)
