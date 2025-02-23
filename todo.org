@@ -8,7 +8,7 @@ In this one-week Proof of Concept, we’ll focus on the bare minimum for capturi
     - [X] Set up basic frontend framework (React or Next.js)
 *** TODO Install Dependencies
     - [X] Add `openai` or `azure/openai` client library
-    - [ ] Add `socket.io` (or similar) for WebSockets
+    - [X] Add `socket.io` (or similar) for WebSockets
     - [X] Add `dotenv` for environment variables
 
 ** TODO Phase 2: Speech-to-Text & AI Integration
