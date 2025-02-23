@@ -1,0 +1,305 @@
+* AI-Powered GM Assistant (Master To-Do List)
+
+** DONE PoC: Real-Time AI Assistant for GM
+   *** DONE Phase 1: Minimal Infrastructure & Project Setup
+       - [X] Initialize a new repository (GitHub or local)
+       - [X] Configure a simple Node.js + Express backend
+       - [X] Set up basic frontend framework (Vite)
+
+   *** System Design Requirements & Considerations
+       - **PoC Scope vs. Long-Term Architecture**  
+         Decide how much of the PoC code will be disposable vs. production-ready to avoid technical debt.
+       - **Scalability**  
+         Even in a PoC, keep an eye on how easily you can scale once you move beyond minimal infrastructure.
+
+** DONE Speech-to-Text & AI Integration
+   - [X] Use Browser’s Web Speech API for live audio capture
+   - [X] Send transcripts to backend via WebSockets
+   - [X] Connect to Azure OpenAI for real-time suggestions
+
+   *** System Design Requirements & Considerations
+       - **AI API Integration**  
+         Balance the latency and cost of external AI calls vs. potential on-prem or cheaper alternatives.
+       - **Latency & Bandwidth**  
+         WebSockets can be sensitive to network conditions; ensure fallback mechanisms (e.g., SSE or polling).
+       - **Browser Compatibility**  
+         Web Speech API support may vary; confirm the user agent coverage meets your needs.
+
+** DONE Real-Time Frontend Updates
+   - [X] Implement WebSocket on backend
+   - [X] Render AI suggestions in frontend UI
+
+   *** System Design Requirements & Considerations
+       - **Connection Limits**  
+         WebSockets keep connections open. Plan for concurrency limits or load-balancing strategies.
+       - **Security & Authentication**  
+         Ensure WebSocket connections are TLS-encrypted (wss://) and properly authenticated.
+
+** TODO Preliminary Tasks & Project Setup
+   - [ ] Rename repository from "CotoGM-POC" to "CotoGM"
+       - [ ] Update remote repository name
+       - [ ] Update README.md to reflect long-term project goals
+       - [ ] Document initial MVP functionality
+   - [ ] Establish Project Folder Structure
+       - [ ] Remove /client-blazor and focus on React Native
+       - [ ] Create /client-react-native for React Native frontend (web and mobile)
+       - [ ] Create /server-node for Node.js backend
+       - [ ] Create /infrastructure/terraform for Terraform code
+       - [ ] Create /infrastructure/helm for Kubernetes Helm charts
+       - [ ] Create /k8s for Kubernetes manifests
+       - [ ] Create /discord-bot for Discord integration
+       - [ ] Create /scripts for utility scripts
+       - [ ] Create .github/workflows for GitHub Actions CI/CD pipelines
+       - [ ] Create /docs for architectural decisions
+   - [ ] Plan for Team Collaboration
+       - [ ] Identify potential collaborators
+       - [ ] Set contribution guidelines and PR review processes
+       - [ ] Assign tasks based on skill sets
+       - [ ] Conduct regular code reviews
+
+   *** System Design Requirements & Considerations
+       - **Monorepo vs. Multi-Repo**  
+         Decide if everything stays in a single repo (simpler cross-service changes) or multiple repos (more isolation).
+       - **Infrastructure as Code**  
+         Ensure the folder structure supports Terraform, Helm, and future expansions.
+       - **Collaboration & Governance**  
+         Enforce code owners, PR checks, and adopt a branching model (GitFlow, trunk-based, etc.).
+       - **Documentation & Testing**  
+         - Maintain an Architecture Decisions Record (ADR) log in `/docs`.
+         - Plan early for cross-platform testing (mobile, web, and eventually iOS) to ensure consistent UI/UX and feature parity.
+
+** TODO Phase 1: Modern Hub-and-Spoke Cloud Architecture
+   *** TODO Hub-and-Spoke Network Topology
+       - [ ] Hub VNet: Centralized VNet for shared services
+       - [ ] Deploy Azure Firewall and NSGs for traffic filtering
+       - [ ] Host Azure Bastion or Jump Server for controlled SSH/RDP access
+       - [ ] Spoke VNets:
+         - [ ] Spoke 1: AKS cluster and RabbitMQ for container orchestration and messaging
+         - [ ] Spoke 2: AI Processing & Database services (CosmosDB/PostgreSQL)
+         - [ ] Spoke 3: React Native frontends (web and mobile)
+       - [ ] Peer all spokes to the hub with appropriate NSG rules for isolation and secured routing
+
+   *** TODO Private Network & Endpoint Configuration
+       - [ ] Set up Private Endpoints for:
+         - [ ] PostgreSQL/CosmosDB
+         - [ ] Redis
+         - [ ] RabbitMQ
+         - [ ] Azure Container Registry (ACR)
+       - [ ] Restrict AKS API access to private network
+       - [ ] Configure Private Link for AI service integrations
+
+   *** TODO Bastion Host / Jump Server
+       - [ ] Deploy Azure Bastion in the Hub network for controlled access
+       - [ ] Configure NSGs to only allow Bastion access to critical infrastructure
+       - [ ] Document secure access workflows for development and production environments
+
+   *** TODO AKS & Cert Manager (Let’s Encrypt)
+       - [ ] Install and configure cert-manager on AKS
+       - [ ] Integrate Let’s Encrypt for automatic certificate provisioning
+       - [ ] Configure Ingress resources to use the cert-manager-issued certificates
+       - [ ] Ensure all microservice endpoints are served over HTTPS / wss://
+
+   *** System Design Requirements & Considerations
+       - **Network Segmentation**  
+         Evaluate how to isolate services by environment or function; zero-trust approaches minimize attack surfaces.
+       - **Security Posture**  
+         Combine Azure Firewall, NSGs, and Bastion with carefully managed private endpoints. 
+       - **Performance Overhead**  
+         Adding a central firewall or using hub-and-spoke can introduce extra hops; ensure it doesn’t break real-time performance (e.g., WebSocket latency).
+       - **Certificates & Encryption**  
+         cert-manager with Let’s Encrypt ensures automated renewals; confirm DNS challenges or HTTP challenges are feasible.
+
+** TODO Phase 2: CI/CD Deployment Lanes (Test, Integration, Production)
+   *** TODO CI/CD Pipeline Structure with Mock & Private Dependencies
+       - [ ] Test Lane (Cost-Effective Testing)
+         - [ ] Deploy each service with mock dependencies:
+           - [ ] Mock AI service endpoints
+           - [ ] In-memory Redis (e.g., RedisMock)
+           - [ ] SQLite for database mocking
+           - [ ] Local RabbitMQ mock
+         - [ ] Run full suite of integration tests with mocked services
+         - [ ] Ensure minimal to no cloud expense for AI/OpenAI usage
+
+       - [ ] Integration Lane (Private Environment Testing)
+         - [ ] Deploy services in isolated private network environment
+         - [ ] Connect to real OpenAI endpoints via Private Link
+         - [ ] Restrict web access to private endpoints only
+         - [ ] Perform load and latency testing against real dependencies
+
+       - [ ] Production Lane (Live Environment)
+         - [ ] Deploy with real dependencies (OpenAI, CosmosDB, etc.)
+         - [ ] Enforce WAF rules and rate-limiting via APIM
+         - [ ] Ensure traffic passes through Application Gateway with managed SSL
+         - [ ] Enable Blue-Green deployment strategies for zero downtime
+         - [ ] Manual approval steps for deployment promotion from Integration → Prod
+         - [ ] Configure pipeline to interact with cert-manager for certificate requests in Production
+
+   *** System Design Requirements & Considerations
+       - **Pipeline Tooling**  
+         Evaluate GitHub Actions, Azure DevOps, or Jenkins for your environment constraints.
+       - **Infrastructure as Code**  
+         Use Terraform/Helm to keep environment configurations consistent. 
+       - **Security & Compliance**  
+         Automate SAST/DAST scans, container vulnerability scans, and secrets detection.
+       - **Deployment Strategies**  
+         Canary or blue-green for critical AI microservices. Automate certificate provisioning via pipeline to ensure each new environment is secured end-to-end.
+
+** TODO Phase 3: Backend Microservices Architecture
+   *** TODO Deploy Core Backend Services
+       - [ ] Deploy AKS cluster with Helm-managed services
+       - [ ] Deploy RabbitMQ for message passing between microservices
+       - [ ] Deploy Redis for caching AI responses and session data
+       - [ ] Deploy PostgreSQL or CosmosDB for long-term storage
+
+   *** TODO Design Microservices for Data Processing
+       - [ ] Create AI processing service for real-time and periodic summarization
+       - [ ] Create session management service to handle user data
+       - [ ] Implement Kubernetes CronJobs for periodic data processing
+       - [ ] Ensure microservices consume/produce data via RabbitMQ queues
+       - [ ] Enforce TLS or mTLS for internal communication (if using a service mesh or custom certificates)
+
+   *** System Design Requirements & Considerations
+       - **Service Boundaries**  
+         Clearly define each microservice’s responsibility to avoid domain overlap.
+       - **Message-Driven vs. Synchronous**  
+         Real-time suggestions might need sync calls, while summarization can be event-driven.
+       - **Data Consistency**  
+         Consider an event-sourcing or CQRS approach for storing game states and AI suggestions.
+       - **WebSocket Encryption**  
+         Confirm internal services or user-facing gateways secure data in transit (wss://). 
+       - **Scalability & Resource Usage**  
+         AI microservices might need GPU nodes or advanced scaling profiles in AKS.
+
+** TODO Phase 4: React Native Development & Discord Integration
+   *** TODO React Native Application (Mobile & Web)
+       - [ ] Set up React Native frontend to support both mobile and web platforms
+       - [ ] Implement authentication flow with Azure AD B2C
+       - [ ] Connect frontend to WebSocket for real-time suggestions
+       - [ ] Optimize React Native build for web compatibility
+       - [ ] Perform cross-platform testing (Android, iOS, web) to confirm consistent UX
+
+   *** TODO Android Store Registration
+       - [ ] Set up Google Play Console account
+       - [ ] Configure React Native Android build
+       - [ ] Generate Android APK/AAB files
+       - [ ] Prepare app for submission (icon, description, privacy policy)
+       - [ ] Conduct Android Play Store app testing (internal and open testing)
+       - [ ] Complete submission process and track store approval
+
+   *** TODO Discord Bot Integration
+       - [ ] Develop Discord bot for AI suggestions in real-time
+       - [ ] Ensure secure WebSocket communication between bot and backend
+       - [ ] Deploy bot with restricted permissions for specific channels
+
+   *** System Design Requirements & Considerations
+       - **Cross-Platform Code Sharing**  
+         Weigh React Native Web vs. a dedicated ReactJS codebase for the browser experience.
+       - **Auth & Token Flows**  
+         Ensure secure token handling in mobile contexts—storage, refresh flows, logout flows.
+       - **Discord Rate Limits**  
+         Implement backoff to avoid API bans if the bot sends too many messages too quickly.
+       - **Testing Strategy**  
+         - **Cross-platform**: Ensure CI environment can build & test iOS, Android, and web. 
+         - Accessibility testing to meet a broader user base’s needs.
+
+** TODO Phase 5: Monitoring, Logging, and Security
+   *** TODO Observability
+       - [ ] Deploy Prometheus for metrics collection in AKS
+       - [ ] Deploy Grafana for dashboards (latency, health, AI performance)
+       - [ ] Configure alerts for queue backlogs, latency issues, and pod failures
+       - [ ] Build advanced analytics dashboards (user flows, cross-platform usage, session data)
+
+   *** TODO Security Best Practices
+       - [ ] Harden AKS clusters with Pod Security Policies (PSPs) or Pod Security Standards
+       - [ ] Secure all private endpoints (Key Vault, Redis, PostgreSQL, etc.)
+       - [ ] Enable Azure Defender for Kubernetes
+       - [ ] Ensure logs are securely stored in Azure Monitor or an external SIEM
+       - [ ] Validate WebSocket encryption end-to-end (TLS termination vs. pass-through)
+
+   *** System Design Requirements & Considerations
+       - **Centralized Logging & Analytics**  
+         Evaluate EFK (Elastic, Fluent, Kibana), Splunk, or native Azure Monitor for log correlation.
+       - **Distributed Tracing**  
+         Implement OpenTelemetry/Jaeger to trace requests across microservices and AI pipelines.
+       - **Advanced Analytics Dashboards**  
+         Merge system-level metrics (Prometheus) and business metrics (user sessions, AI usage) into unified Grafana dashboards.
+       - **Proactive Security**  
+         Integrate container scanning (Trivy, Aqua) in CI/CD, and potentially adopt a zero-trust approach with mTLS.
+
+** TODO Phase 6: Final Validation & Production Deployment
+   *** TODO Final Testing
+       - [ ] Perform end-to-end testing across mobile (Android/web React Native), web, and Discord
+       - [ ] Conduct load testing on AI summarization services
+       - [ ] Validate Blue-Green deployments in production
+       - [ ] Confirm cross-platform test coverage and sign-off on final UX
+
+   *** TODO Production Deployment
+       - [ ] Deploy infrastructure and services in production environment
+       - [ ] Finalize domain setup with Cloudflare and Azure DNS
+       - [ ] Verify all endpoints are protected by WAF and APIM
+       - [ ] Ensure cert-manager and Let’s Encrypt certificates are valid for the production domain(s)
+
+   *** TODO Project Documentation & Demo
+       - [ ] Document all architectural decisions (ADRs)
+       - [ ] Record a demo walkthrough highlighting technical challenges
+       - [ ] Publish performance metrics and infrastructure diagrams
+       - [ ] Prepare a runbook or knowledge transfer for operations team
+
+   *** System Design Requirements & Considerations
+       - **Load Testing & Benchmarking**  
+         Ensure AI calls remain within acceptable latency under peak loads. 
+       - **Rollback & Release Strategies**  
+         Blue-green or canary deployments with a tested rollback plan is essential for business continuity.
+       - **DNS & Traffic Management**  
+         Cloudflare or Azure Front Door can offer caching, SSL termination, and DDoS protection at scale.
+       - **Operational Readiness**  
+         Validate logs, metrics, runbooks, and on-call procedures before going live.
+
+** TODO Additional Considerations (Future Enhancements)
+   *** TODO Disaster Recovery & High Availability (HA)
+       - [ ] Implement multi-region failover with Azure Traffic Manager
+       - [ ] Configure geo-replication for PostgreSQL/CosmosDB
+       - [ ] Define and document RPO/RTO trade-offs
+       - [ ] Create and test DR failover runbooks on a regular schedule
+
+   *** TODO Performance & Load Testing
+       - [ ] Integrate k6 or JMeter for load and performance testing
+       - [ ] Simulate real-world load to benchmark scaling under stress
+       - [ ] Add chaos testing (e.g., Chaos Mesh or Azure Chaos Studio) to reveal hidden weaknesses
+
+   *** TODO Cost Optimization Strategies
+       - [ ] Review Azure Advisor recommendations for cost savings
+       - [ ] Implement efficient autoscaling policies
+       - [ ] Consider spot instances or reserved instances for stable long-term workloads
+
+   *** TODO Service Mesh Integration
+       - [ ] Integrate Istio or Linkerd for secure service-to-service communication
+       - [ ] Use service mesh for advanced traffic management, mTLS, and observability
+
+   *** TODO Data Consistency Patterns
+       - [ ] Explore and document CQRS and Event Sourcing patterns
+       - [ ] Implement consistency solutions for large-scale data operations
+
+   *** TODO Advanced Security Practices
+       - [ ] Adopt Zero Trust Architecture principles
+       - [ ] Integrate Azure DDoS Protection plans for enhanced security
+       - [ ] Implement policy-based cluster admission controls (OPA/Gatekeeper)
+
+   *** TODO AI Lifecycle Management
+       - [ ] Introduce AI prompt tuning pipelines for continuous improvement
+       - [ ] Use MLflow or Azure ML for AI model lifecycle management
+       - [ ] Investigate on-prem or specialized GPU clusters if usage grows significantly
+
+   *** TODO User Analytics & Personalization
+       - [ ] Integrate Azure Application Insights for user behavior tracking
+       - [ ] Implement personalized AI suggestions based on user history
+
+   *** System Design Requirements & Considerations
+       - **DR Drills**  
+         Regularly test multi-region failover to ensure staff can execute DR plans swiftly.
+       - **Serverless vs. AKS**  
+         Some batch jobs or AI tasks might benefit from serverless if usage is spiky.
+       - **Chaos Engineering**  
+         Testing node failures, network latencies, or partial outages can uncover resilience gaps.
+       - **Accessibility & Compliance**  
+         Evaluate WCAG (web content accessibility guidelines) for the React Native web experience if needed. 
