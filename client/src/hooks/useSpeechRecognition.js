@@ -1,44 +1,59 @@
-// src/hooks/useSpeechRecognition.js
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const useSpeechRecognition = () => {
-  const [transcript, setTranscript] = useState('');
-  const [listening, setListening] = useState(false);
+    const [transcript, setTranscript] = useState('');
+    const [listening, setListening] = useState(false);
+    const recognitionRef = useRef(null);
 
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const recognition = new SpeechRecognition();
+    useEffect(() => {
+	const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+	const recognition = new SpeechRecognition();
+	recognitionRef.current = recognition;
 
-  recognition.continuous = true;
-  recognition.interimResults = true;
-  recognition.lang = 'en-US';
+	recognition.continuous = true;
+	recognition.interimResults = true;
+	recognition.lang = 'en-US';
 
-  const startListening = () => {
-    setListening(true);
-    recognition.start();
-  };
+	recognition.onresult = (event) => {
+	    const currentTranscript = Array.from(event.results)
+		  .map((result) => result[0])
+		  .map((result) => result.transcript)
+		  .join('');
+	    setTranscript(currentTranscript);
+	};
 
-  const stopListening = () => {
-    setListening(false);
-    recognition.stop();
-  };
+	recognition.onerror = (event) => {
+	    console.error('Speech recognition error:', event.error);
+	};
 
-  useEffect(() => {
-    recognition.onresult = (event) => {
-      const currentTranscript = Array.from(event.results)
-        .map(result => result[0])
-        .map(result => result.transcript)
-        .join('');
-      setTranscript(currentTranscript);
+	recognition.onend = () => {
+	    if (listening) {
+		recognition.start();
+	    }
+	};
+
+	return () => {
+	    recognition.stop();
+	};
+    }, []);
+
+    const startListening = () => {
+	setTranscript('');
+	setListening(true);
+	if (recognitionRef.current) {
+	    recognitionRef.current.start();
+	}
     };
 
-    recognition.onerror = (event) => {
-      console.error('Speech recognition error:', event.error);
+    const stopListening = () => {
+	setListening(false);
+	if (recognitionRef.current) {
+	    recognitionRef.current.onend = null; 
+	    recognitionRef.current.stop();
+	}
     };
 
-    return () => recognition.stop();
-  }, []);
-
-  return { transcript, listening, startListening, stopListening };
+    return { transcript, listening, startListening, stopListening };
 };
 
 export default useSpeechRecognition;

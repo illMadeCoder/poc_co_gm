@@ -18,11 +18,12 @@ const server = http.createServer(app);
 
 // configure socket.io
 const io = new Server(server, {
-    cors: {
-	origin: 'http://localhost:5174',
-	methods: ['GET', 'POST'],
-	credentials: true,
-    }});
+  cors: {
+    origin: 'http://localhost:5174',
+    methods: ['GET', 'POST'],
+    credentials: true,
+  },
+});
 
 // OpenAI Configuration
 const openai = new OpenAI({
@@ -30,32 +31,39 @@ const openai = new OpenAI({
 });
 
 io.on('connection', (socket) => {
-    console.log('New client connected:', socket.id);
+  console.log('New client connected:', socket.id);
 
-    socket.on('send_prompt', async (prompt) => {
-	try {
-	    const response = await openai.chat.completions.create({
-		model: 'gpt-4',
-		messages: [{ role: 'user', content: prompt }]
-	    });
+  // Receive prompt along with its unique ID from the client
+  socket.on('send_prompt', async ({ id, prompt }) => {
+    try {
+      const response = await openai.chat.completions.create({
+        model: 'gpt-4',
+        messages: [
+          { role: 'user', content: prompt },
+          {
+            role: 'system',
+            content:
+              'You are overhearing a game master running a Tabletop RPG game, briefly predict and provide creative ideas for what the game master might say next. You are limited to 20 tokens',
+          },
+        ],
+        max_tokens: 20,
+        temperature: 0.8,
+      });
 
-	    socket.emit('ai_response', response.choices[0].message.content);
-	} catch (error) {
-	    console.error('error from OpenAI:', error);
-	    socket.emit('ai_response', 'Error generating suggestion.');
-	}
-    });
+      // Emit response along with the original ID for client-side matching
+      socket.emit('ai_response', { id, response: response.choices[0].message.content });
+    } catch (error) {
+      console.error('error from OpenAI:', error);
+      socket.emit('ai_response', { id, response: 'Error generating suggestion.' });
+    }
+  });
 
-    socket.on('disconnect', () => {
-	console.log('Client disconnected:', socket.id);
-    });
+  socket.on('disconnect', () => {
+    console.log('Client disconnected:', socket.id);
+  });
 });
 
-//Start Server
-// app.listen(PORT, () => {
-//   console.log(`Server running on http://localhost:${PORT}`);
-// });
-
+// Start Server
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
