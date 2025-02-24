@@ -45,23 +45,17 @@
    - [X] Document initial MVP functionality
 
 *** Establish Project Folder Structure
-   - [-] Create /react-client as basic PoC client
-   - [ ] Create /client-react-native for React Native frontend (web
+   - [X] Create /react-client as basic PoC client
+   - [X] Create /client-react-native for React Native frontend (web
      and mobile)
    - [X] Create /api for Node.js backend
-   - [ ] Create /infrastructure/terraform for Terraform code
-   - [ ] Create /infrastructure/helm for Kubernetes Helm charts
-   - [ ] Create /k8s for Kubernetes manifests
-   - [ ] Create /discord-bot for Discord integration
-   - [ ] Create /scripts for utility scripts
-   - [ ] Create .github/workflows for GitHub Actions CI/CD pipelines
-   - [ ] Create /docs for architectural decisions
-
-*** Plan for Team Collaboration
-   - [ ] Identify potential collaborators
-   - [ ] Set contribution guidelines and PR review processes
-   - [ ] Assign tasks based on skill sets
-   - [ ] Conduct regular code reviews
+   - [X] Create /infrastructure/terraform for Terraform code
+   - [X] Create /infrastructure/helm for Kubernetes Helm charts
+   - [X] Create /k8s for Kubernetes manifests
+   - [X] Create /discord-bot for Discord integration
+   - [X] Create /scripts for utility scripts
+   - [X] Create .github/workflows for GitHub Actions CI/CD pipelines
+   - [X] Create /docs for architectural decisions
 
 ** System Design Requirements & Considerations
 *** Monorepo vs. Multi-Repo
