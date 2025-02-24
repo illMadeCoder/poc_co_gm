@@ -1,4 +1,4 @@
-* AI-Powered GM Assistant (Master To-Do List)
+* Scrying.ai Roadmap
 
 ** DONE PoC: Real-Time AI Assistant for GM
    *** DONE Phase 1: Minimal Infrastructure & Project Setup
@@ -35,114 +35,194 @@
        - **Security & Authentication**  
          Ensure WebSocket connections are TLS-encrypted (wss://) and properly authenticated.
 
-** TODO Preliminary Tasks & Project Setup
-   - [ ] Rename repository from "CotoGM-POC" to "CotoGM"
-       - [ ] Update remote repository name
-       - [ ] Update README.md to reflect long-term project goals
-       - [ ] Document initial MVP functionality
-   - [ ] Establish Project Folder Structure
-       - [ ] Remove /client-blazor and focus on React Native
-       - [ ] Create /client-react-native for React Native frontend (web and mobile)
-       - [ ] Create /server-node for Node.js backend
-       - [ ] Create /infrastructure/terraform for Terraform code
-       - [ ] Create /infrastructure/helm for Kubernetes Helm charts
-       - [ ] Create /k8s for Kubernetes manifests
-       - [ ] Create /discord-bot for Discord integration
-       - [ ] Create /scripts for utility scripts
-       - [ ] Create .github/workflows for GitHub Actions CI/CD pipelines
-       - [ ] Create /docs for architectural decisions
-   - [ ] Plan for Team Collaboration
-       - [ ] Identify potential collaborators
-       - [ ] Set contribution guidelines and PR review processes
-       - [ ] Assign tasks based on skill sets
-       - [ ] Conduct regular code reviews
+** Preliminary Tasks & Project Setup
+*** Rename repository from "CotoGM-POC" to "scryingAI"
+   - [X] Update remote repository name
+   - [X] Update README.md to reflect long-term project goals
+   - [X] Document initial MVP functionality
 
-   *** System Design Requirements & Considerations
-       - **Monorepo vs. Multi-Repo**  
-         Decide if everything stays in a single repo (simpler cross-service changes) or multiple repos (more isolation).
-       - **Infrastructure as Code**  
-         Ensure the folder structure supports Terraform, Helm, and future expansions.
-       - **Collaboration & Governance**  
-         Enforce code owners, PR checks, and adopt a branching model (GitFlow, trunk-based, etc.).
-       - **Documentation & Testing**  
-         - Maintain an Architecture Decisions Record (ADR) log in `/docs`.
-         - Plan early for cross-platform testing (mobile, web, and eventually iOS) to ensure consistent UI/UX and feature parity.
+*** Establish Project Folder Structure
+   - [-] Create /react-client as basic PoC client
+   - [ ] Create /client-react-native for React Native frontend (web and mobile)
+   - [ ] Create /server-node for Node.js backend
+   - [ ] Create /infrastructure/terraform for Terraform code
+   - [ ] Create /infrastructure/helm for Kubernetes Helm charts
+   - [ ] Create /k8s for Kubernetes manifests
+   - [ ] Create /discord-bot for Discord integration
+   - [ ] Create /scripts for utility scripts
+   - [ ] Create .github/workflows for GitHub Actions CI/CD pipelines
+   - [ ] Create /docs for architectural decisions
+
+*** Plan for Team Collaboration
+   - [ ] Identify potential collaborators
+   - [ ] Set contribution guidelines and PR review processes
+   - [ ] Assign tasks based on skill sets
+   - [ ] Conduct regular code reviews
+
+** System Design Requirements & Considerations
+*** Monorepo vs. Multi-Repo
+   - Decide if everything stays in a single repo (simpler cross-service changes) 
+     or multiple repos (more isolation).
+*** Infrastructure as Code
+   - Ensure the folder structure supports Terraform, Helm, and future expansions.
+*** Collaboration & Governance
+   - Enforce code owners, PR checks, and adopt a branching model (GitFlow or trunk-based).
+*** Documentation & Testing
+   - Maintain an Architecture Decisions Record (ADR) log in /docs.
+   - Plan early for cross-platform testing (mobile, web, iOS) to ensure consistent UI/UX and parity.
 
 ** TODO Phase 1: Modern Hub-and-Spoke Cloud Architecture
-   *** TODO Hub-and-Spoke Network Topology
-       - [ ] Hub VNet: Centralized VNet for shared services
-       - [ ] Deploy Azure Firewall and NSGs for traffic filtering
-       - [ ] Host Azure Bastion or Jump Server for controlled SSH/RDP access
-       - [ ] Spoke VNets:
-         - [ ] Spoke 1: AKS cluster and RabbitMQ for container orchestration and messaging
-         - [ ] Spoke 2: AI Processing & Database services (CosmosDB/PostgreSQL)
-         - [ ] Spoke 3: React Native frontends (web and mobile)
-       - [ ] Peer all spokes to the hub with appropriate NSG rules for isolation and secured routing
+*** TODO Hub-and-Spoke Network Topology
+   - [ ] Hub VNet: Centralized VNet for shared services
+   - [ ] Deploy Azure Firewall and NSGs for traffic filtering
+   - [ ] Host Azure Bastion or Jump Server for controlled SSH/RDP access
+   - [ ] Spoke VNets:
+     - [ ] Spoke 1: AKS cluster and RabbitMQ for container orchestration and messaging
+     - [ ] Spoke 2: AI Processing & Database services (CosmosDB/PostgreSQL)
+     - [ ] Spoke 3: React Native frontends (web and mobile)
+   - [ ] Peer all spokes to the hub with appropriate NSG rules for isolation and secured routing
 
-   *** TODO Private Network & Endpoint Configuration
-       - [ ] Set up Private Endpoints for:
-         - [ ] PostgreSQL/CosmosDB
-         - [ ] Redis
-         - [ ] RabbitMQ
-         - [ ] Azure Container Registry (ACR)
-       - [ ] Restrict AKS API access to private network
-       - [ ] Configure Private Link for AI service integrations
+*** TODO Private Network & Endpoint Configuration
+   - [ ] Set up Private Endpoints for:
+     - [ ] PostgreSQL/CosmosDB
+     - [ ] Redis
+     - [ ] RabbitMQ
+     - [ ] Azure Container Registry (ACR)
+   - [ ] Restrict AKS API access to private network
+   - [ ] Configure Private Link for AI service integrations
 
-   *** TODO Bastion Host / Jump Server
-       - [ ] Deploy Azure Bastion in the Hub network for controlled access
-       - [ ] Configure NSGs to only allow Bastion access to critical infrastructure
-       - [ ] Document secure access workflows for development and production environments
+*** TODO Bastion Host / Jump Server
+   - [ ] Deploy Azure Bastion in the Hub network for controlled access
+   - [ ] Configure NSGs to only allow Bastion access to critical infrastructure
+   - [ ] Document secure access workflows for development and production environments
 
-   *** TODO AKS & Cert Manager (Let’s Encrypt)
-       - [ ] Install and configure cert-manager on AKS
-       - [ ] Integrate Let’s Encrypt for automatic certificate provisioning
-       - [ ] Configure Ingress resources to use the cert-manager-issued certificates
-       - [ ] Ensure all microservice endpoints are served over HTTPS / wss://
+*** TODO AKS & Cert Manager (Let’s Encrypt)
+   - [ ] Install and configure cert-manager on AKS
+   - [ ] Integrate Let’s Encrypt for automatic certificate provisioning
+   - [ ] Configure Ingress resources to use the cert-manager-issued certificates
+   - [ ] Ensure all microservice endpoints are served over HTTPS / wss://
 
-   *** System Design Requirements & Considerations
-       - **Network Segmentation**  
-         Evaluate how to isolate services by environment or function; zero-trust approaches minimize attack surfaces.
-       - **Security Posture**  
-         Combine Azure Firewall, NSGs, and Bastion with carefully managed private endpoints. 
-       - **Performance Overhead**  
-         Adding a central firewall or using hub-and-spoke can introduce extra hops; ensure it doesn’t break real-time performance (e.g., WebSocket latency).
-       - **Certificates & Encryption**  
-         cert-manager with Let’s Encrypt ensures automated renewals; confirm DNS challenges or HTTP challenges are feasible.
+*** System Design Requirements & Considerations (Phase 1)
+   - **Network Segmentation**  
+     Evaluate how to isolate services by environment or function; zero-trust approaches.
+   - **Security Posture**  
+     Combine Azure Firewall, NSGs, Bastion, and private endpoints.
+   - **Performance Overhead**  
+     Ensure hub-and-spoke or firewall routing does not break real-time performance.
+   - **Certificates & Encryption**  
+     Confirm DNS or HTTP challenges for Let’s Encrypt are feasible; automate renewals.
 
-** TODO Phase 2: CI/CD Deployment Lanes (Test, Integration, Production)
-   *** TODO CI/CD Pipeline Structure with Mock & Private Dependencies
-       - [ ] Test Lane (Cost-Effective Testing)
-         - [ ] Deploy each service with mock dependencies:
-           - [ ] Mock AI service endpoints
-           - [ ] In-memory Redis (e.g., RedisMock)
-           - [ ] SQLite for database mocking
-           - [ ] Local RabbitMQ mock
-         - [ ] Run full suite of integration tests with mocked services
-         - [ ] Ensure minimal to no cloud expense for AI/OpenAI usage
+** TODO Phase 2: CI/CD Deployment Lanes (Dev, Integration, Production)
+*** CI/CD Pipeline Structure & Deployment Lanes
+   - Dev Lane (Partial Mocks & Incremental Integration)
+   - Integration Lane (Private Environment Testing)
+   - Production Lane (Live Environment)
 
-       - [ ] Integration Lane (Private Environment Testing)
-         - [ ] Deploy services in isolated private network environment
-         - [ ] Connect to real OpenAI endpoints via Private Link
-         - [ ] Restrict web access to private endpoints only
-         - [ ] Perform load and latency testing against real dependencies
+*** Dev Lane (Partial Mocks & Incremental Integration)
+   - [ ] Subdomain: dev.scrying.ai
+   - [ ] Configure Azure App Service for Dev deployment
+   - [ ] Use Azure-managed TLS certificates
+   - [ ] Secure Dev environment with Cloudflare Access (Full strict TLS mode)
+   - [ ] Configuration Management:
+     - [ ] Use Azure App Configuration for centralized and dynamic runtime settings
+     - [ ] Store endpoints, DB URIs, and feature toggles in Azure App Configuration
+     - [ ] Implement .env files for local development
+     - [ ] Use Azure App Settings for cloud-based environment variables
+     - [ ] Integrate Azure Key Vault for secrets
+     - [ ] Manage feature flags with Azure App Configuration
+   - [ ] Partial Mock Usage:
+     - [ ] Mock AI service endpoints
+     - [ ] In-memory Redis or RedisMock
+     - [ ] SQLite for database mocking
+     - [ ] Local RabbitMQ mock
+   - [ ] CI/CD Pipeline:
+     - [ ] GitHub Actions for Dev Lane (auto-deploy on dev branch push)
+     - [ ] Fetch configurations from Azure App Configuration during deployment
+     - [ ] Secure secrets injection from Azure Key Vault
 
-       - [ ] Production Lane (Live Environment)
-         - [ ] Deploy with real dependencies (OpenAI, CosmosDB, etc.)
-         - [ ] Enforce WAF rules and rate-limiting via APIM
-         - [ ] Ensure traffic passes through Application Gateway with managed SSL
-         - [ ] Enable Blue-Green deployment strategies for zero downtime
-         - [ ] Manual approval steps for deployment promotion from Integration → Prod
-         - [ ] Configure pipeline to interact with cert-manager for certificate requests in Production
+*** Integration Lane (Private Environment Testing)
+   - [ ] Deploy services in an isolated private network environment
+   - [ ] Connect to real OpenAI endpoints via Private Link
+   - [ ] Restrict web access to private endpoints only
+   - [ ] Configuration Management:
+     - [ ] Use Azure App Configuration for environment-specific settings
+     - [ ] Secure secrets with Azure Key Vault
+     - [ ] Dynamic switching of dependencies/configurations via CI/CD
+   - [ ] Perform load and latency testing against real dependencies
 
-   *** System Design Requirements & Considerations
-       - **Pipeline Tooling**  
-         Evaluate GitHub Actions, Azure DevOps, or Jenkins for your environment constraints.
-       - **Infrastructure as Code**  
-         Use Terraform/Helm to keep environment configurations consistent. 
-       - **Security & Compliance**  
-         Automate SAST/DAST scans, container vulnerability scans, and secrets detection.
-       - **Deployment Strategies**  
-         Canary or blue-green for critical AI microservices. Automate certificate provisioning via pipeline to ensure each new environment is secured end-to-end.
+*** Production Lane (Live Environment)
+   - [ ] Domain: scrying.ai (www.scrying.ai redirect if desired)
+   - [ ] Azure App Service for Production deployment
+   - [ ] Azure-managed TLS certificates
+   - [ ] Enforce HTTPS-only and WAF protection
+   - [ ] Configuration Management:
+     - [ ] Centralized management via Azure App Configuration
+     - [ ] Secrets exclusively in Azure Key Vault
+     - [ ] Real-time configuration updates without redeployment
+     - [ ] Automated feature flags in Azure App Configuration
+   - [ ] CI/CD deployment with manual approval steps
+   - [ ] Traffic through Application Gateway with managed SSL
+   - [ ] Enable Blue-Green deployment for zero downtime
+   - [ ] Integrate pipeline with cert-manager for certificate requests
+   - [ ] (Future) Azure Bastion + Private VNet for enhanced security
+
+*** Terraform Structure
+   - [ ] Create /terraform/environments/dev/ for Dev infrastructure
+   - [ ] Create /terraform/environments/prod/ for Production infrastructure
+   - [ ] Set up reusable modules:
+     - [ ] /modules/dns
+     - [ ] /modules/app_service
+     - [ ] /modules/networking
+     - [ ] /modules/monitoring
+     - [ ] /modules/configuration (Azure App Configuration and Key Vault)
+
+*** CI/CD Pipeline Configuration
+   - [ ] GitHub Actions for Dev Lane (auto-deploy on dev branch push)
+   - [ ] GitHub Actions for Integration Lane (triggered after Dev success)
+   - [ ] GitHub Actions for Prod Lane (deploy on main branch w/ manual approval)
+   - [ ] Inject Azure App Configuration settings at runtime
+   - [ ] Integrate Azure Key Vault secrets dynamically
+   - [ ] Use feature flag toggles for mock/live services
+
+*** TLS & Security Setup
+   - [ ] Enable Azure-managed certificates for all domains
+   - [ ] Set Cloudflare to Full (strict) TLS
+   - [ ] Validate WebSocket support over wss://
+   - [ ] Automate SAST/DAST scans, container vulnerability scans, secrets detection
+   - [ ] Enforce WAF rules and rate-limiting (e.g., APIM or Azure Front Door)
+
+*** Deployment Strategies
+   - [ ] Canary or Blue-Green for critical AI microservices
+   - [ ] Automate certificate provisioning via pipeline
+   - [ ] Manual approval steps for deployment promotion from Integration → Prod
+
+*** System Design Requirements & Considerations (Phase 2)
+   - **Pipeline Tooling**  
+     Evaluate GitHub Actions vs Azure DevOps.
+   - **Infrastructure as Code**  
+     Keep using Terraform/Helm for consistent environments.
+   - **Configuration Management**  
+     Centralize via Azure App Configuration; secure secrets with Key Vault.
+   - **Security & Compliance**  
+     Automate scanning and secrets detection in CI/CD.
+   - **Deployment Strategies**  
+     Start simple; scale as the user base grows.
+
+*** Key Decisions
+   - Dev lane supports partial mocks and incremental integration
+   - Azure App Configuration for centralized config
+   - Azure Key Vault for secure secret management
+   - Production lane for real testing (friends & family at first)
+   - Add Integration lane later if necessary
+   - Cloudflare Access for dev subdomain
+   - Azure-managed TLS (with Let’s Encrypt or internal CA)
+   - Incremental CI/CD: Dev → Integration → Prod
+   - Avoid premature, expensive infrastructure
+
+*** Notes
+   - Minimize cloud expense for AI/OpenAI usage in Dev
+   - Prioritize cost-effective, secure deployments
+   - Azure-native config management from Day 1
 
 ** TODO Phase 3: Backend Microservices Architecture
    *** TODO Deploy Core Backend Services
