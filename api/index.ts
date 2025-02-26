@@ -1,10 +1,13 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const { OpenAI } = require('openai');
-const http = require('http');
-const { Server } = require('socket.io');
+import {ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData} from "apiTypes";
 
+import { config as dotenvConfig } from "dotenv";
+import { Server } from "socket.io";
+import express from "express";
+import cors from "cors";
+import { OpenAI } from "openai";
+import http from "http";
+
+dotenvConfig()
 const app = express();
 const PORT = 5000;
 
@@ -16,7 +19,12 @@ app.use(express.json());
 const server = http.createServer(app);
 
 // configure socket.io
-const io = new Server(server, {
+const io = new Server<
+    ClientToServerEvents,
+    ServerToClientEvents,
+    InterServerEvents,
+    SocketData
+>(server, {
   cors: {
     origin: ['http://localhost:5173', 'http://localhost:5174'],
     methods: ['GET', 'POST'],
@@ -33,7 +41,7 @@ io.on('connection', (socket) => {
   console.log('New client connected:', socket.id);
 
   // Receive prompt along with its unique ID from the client
-  socket.on('send_prompt', async ({ id, prompt }) => {
+  socket.on("send_prompt", async ({ id, prompt }) => {
     try {
       const response = await openai.chat.completions.create({
         model: 'gpt-4',
