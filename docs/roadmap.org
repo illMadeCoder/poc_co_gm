@@ -1,3 +1,5 @@
+Technical Roadmap for scrying.ai: a real time tabletop roleplaying game assistant.
+
 * DONE PoC: Real-Time AI Assistant
 ** DONE Minimal Infrastructure & Project Setup
 - [X] Initialize a new repository (GitHub or local)
@@ -36,13 +38,13 @@
 - **Security & Authentication** Ensure WebSocket connections
   are TLS-encrypted (wss://) and properly authenticated.
 
-* Preliminary Tasks & Project Setup
-** Rename repository from "CotoGM-POC" to "scryingAI"
+* DONE Preliminary Tasks & Project Setup
+** DONE Rename repository from "CotoGM-POC" to "scryingAI"
    - [X] Update remote repository name
    - [X] Update README.md to reflect long-term project goals
    - [X] Document initial MVP functionality
 
-** Establish Project Folder Structure
+** DONE Establish Project Folder Structure
    - [X] Create /react-client as basic PoC client
    - [X] Create /client-react-native for React Native frontend (web
      and mobile)
@@ -55,30 +57,30 @@
    - [X] Create .github/workflows for GitHub Actions CI/CD pipelines
    - [X] Create /docs for architectural decisions
 
-* System Design Requirements & Considerations
-** Monorepo vs. Multi-Repo
+** System Design Requirements & Considerations
+*** Monorepo vs. Multi-Repo
    - Decide if everything stays in a single repo (simpler
      cross-service changes) or multiple repos (more isolation).
-** Infrastructure as Code
+*** Infrastructure as Code
    - Ensure the folder structure supports Terraform, Helm, and future
      expansions.
-** Collaboration & Governance
+*** Collaboration & Governance
    - Enforce code owners, PR checks, and adopt a branching model
      (GitFlow or trunk-based).
-** Documentation & Testing
+*** Documentation & Testing
    - Maintain an Architecture Decisions Record (ADR) log in /docs.
    - Plan early for cross-platform testing (mobile, web, iOS) to
      ensure consistent UI/UX and parity.
 
-* Scrying.ai Project Setup (Azure & Terraform) 
+* TODO Scrying.ai Project Setup (Azure & Terraform) 
 ** TODO Set up scrying.ai domain with Azure
-   - [ ] Create a new Azure AD (Microsoft Entra ID) tenant:
-     - [ ] Go to Azure portal → Microsoft Entra ID → Manage tenants → Create.
-     - [ ] Choose "Azure AD" as the tenant type.
-   - [ ] Verify scrying.ai domain in Entra ID:
-     - [ ] In Microsoft Entra ID, select "Custom domain names."
-     - [ ] Add custom domain: scrying.ai.
-     - [ ] Follow DNS verification steps by adding provided DNS records at your domain registrar.
+   - [X] Create a new Azure AD (Microsoft Entra ID) tenant:
+     - [X] Go to Azure portal → Microsoft Entra ID → Manage tenants → Create.
+     - [X] Choose "Azure AD" as the tenant type.
+   - [X] Verify scrying.ai domain in Entra ID:
+     - [X] In Microsoft Entra ID, select "Custom domain names."
+     - [X] Add custom domain: scrying.ai.
+     - [X] Follow DNS verification steps by adding provided DNS records at your domain registrar.
    - [ ] Set up admin email account (admin@scrying.ai):
      - [ ] In Microsoft Entra ID, select "Users" → "New user."
      - [ ] Enter username: admin@scrying.ai.
@@ -114,7 +116,7 @@
    - [ ] Define backup strategies using Azure Backup.
    - [ ] Plan for region redundancy for critical resources.
 
-* Terraform Project Setup for Multi-Subscription Architecture 
+* TODO Terraform Project Setup for Multi-Subscription Architecture 
 ** TODO Create storage account for each environment in its own subscription
    - [ ] dev-subscription: tfstatesa-dev
    - [ ] staging-subscription: tfstatesa-staging
@@ -200,7 +202,6 @@
      does not break real-time performance.
    - **Certificates & Encryption** Confirm DNS or HTTP challenges for
      Let’s Encrypt are feasible; automate renewals.
-
 
 * TODO CI/CD Deployment Lanes (Dev, Integration, Production)
 ** CI/CD Pipeline Structure & Deployment Lanes
