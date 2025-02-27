@@ -1,30 +1,30 @@
 export interface ServerToClientEvents {
-    noArg: () => void;
-    basicEmit: (a: number, b: string, c: Buffer) => void;
-    withAck: (d: string, callback: (e: number) => void) => void;
-    ai_response: (data: AiResponseData) => void;
+  noArg: () => void;
+  basicEmit: (a: number, b: string, c: Buffer) => void;
+  withAck: (d: string, callback: (e: number) => void) => void;
+  ai_response: (data: AiResponseData) => void;
 }
 
 export interface ClientToServerEvents {
-    hello: () => void;
-    send_prompt: (args: SendPromptData) => void;
+  hello: () => void;
+  send_prompt: (args: SendPromptData) => void;
 }
 
 export interface InterServerEvents {
-    ping: () => void;
+  ping: () => void;
 }
 
 export interface SocketData {
-    name: string;
-    age: number;
+  name: string;
+  age: number;
 }
 
 export interface SendPromptData {
-    id: string;
-    prompt: string;
+  id: string;
+  prompt: string;
 }
 
 export interface AiResponseData {
-    id: string;
-    response: string | null;
+  id: string;
+  response: string | null;
 }
