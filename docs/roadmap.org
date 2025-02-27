@@ -56,6 +56,23 @@
    - [X] Create .github/workflows for GitHub Actions CI/CD pipelines
    - [X] Create /docs for architectural decisions
 
+*** Repository Org Setup
+- [ ] Create **GitHub organization**: Scrying AI Lab or Scrying AI Team
+- [ ] Create **monorepo**: `scrying-ai/mono`
+- [ ] Set up **repo permissions** to allow contributors to create PRs without forking
+
+*** Branching Strategy
+- [ ] Research and decide on a **branching model** (e.g., `main` + feature branches, GitFlow, trunk-based)
+- [ ] Configure **branch protection rules** (e.g., require PR reviews, prevent direct pushes to `main`)
+- [ ] Decide on **release management** (e.g., tags, versioning strategy)
+
+*** Monorepo Management
+- [ ] Research **monorepo strategies** (e.g., Google-style monorepo, multi-package, service-oriented)
+- [ ] Evaluate **monorepo tooling**:
+  - [ ] **Nx** (TypeScript/JS-focused)
+  - [ ] **Turborepo** (lightweight, JS-focused)
+  - [ ] **Bazel** (Google-scale, all languages)
+
 *** System Design Requirements & Considerations
 **** Monorepo vs. Multi-Repo
    - Decide if everything stays in a single repo (simpler
