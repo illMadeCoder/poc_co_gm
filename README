@@ -1,35 +1,38 @@
-* PoC: Real-Time AI Assistant for GM
+# Scrying.ai
 
-** DONE Phase 1: Minimal Infrastructure & Project Setup
-*** DONE Create Local Dev Environment
-    - [X] Initialize a new repository (GitHub or local)
-    - [X] Configure a simple Node.js + Express backend
-    - [X] Set up basic frontend framework (React or Next.js)
-*** DONE Install Dependencies
-    - [X] Add `openai` or `azure/openai` client library
-    - [X] Add `socket.io` (or similar) for WebSockets
-    - [X] Add `dotenv` for environment variables
+## Overview
+Scrying.ai is an AI-powered assistant that provides real-time suggestions and post-session summaries for tabletop role-playing games (TTRPGs). We are in early development with an ambitious roadmap and are looking for contributors to join us, please reach out to our team if you're interested!
 
-** DONE Phase 2: Speech-to-Text & AI Integration
-*** DONE Implement Local Speech-to-Text
-    - [X] Use Browser’s Web Speech API to capture live audio
-    - [X] Send final transcripts to backend via REST or WebSockets
-*** DONE Connect to Azure OpenAI (GPT)
-    - [X] Set up an Azure OpenAI resource (or use OpenAI API key)
-    - [X] Write minimal prompt logic: “Given the GM said X, respond with a suggestion.”
+## Project Goals
+### App Features
+- Real-time AI TTRPG suggestions via voice transcription including:
+    - Hint at what happens next,
+    - Rule assistance,
+    - Random tables for items, monsters, events, etc,
+    - Scene description
+- Post Game Summaries including:
+    - Major events & plot points,
+    - Plot Advancement,
+    - Player & Character details,
+    - 'When we last left our heroes' intro
+- Cross Platform
+    - Browser 
+    - Discord
+    - Mobile
 
-** DONE Phase 3: Real-Time Updates to Frontend
-*** DONE Implement WebSockets on Backend
-    - [X] On receiving AI response, emit event with suggestion text
-*** DONE Display AI Suggestions in Frontend
-    - [X] Connect React/Next.js to WebSocket endpoint
-    - [X] Listen for `ai_response` events
-    - [X] Render suggestions in a simple list or box
+### DevOps
+- CI/CD Pipeline
+- Ephemeral Environments
+- Blue Green or Canary Deployment
 
-** DONE Phase 4: Test & Validate
-*** DONE Local Testing
-    - [X] Confirm real-time flow: Speak → Transcription → AI → Suggestion
-    - [X] Verify suggestions appear without manual refresh
-*** DONE Basic Performance Check
-    - [X] Ensure quick turnaround from speech to AI response
-    - [X] Log latencies (time from speech end to suggestion received)
+## Instructions to Get Started
+Early development real-time TTRPG AI PoC
+
+```sh
+git clone https://github.com/ScryingLab/scrying.ai.git
+
+cd vite-client 
+npm run dev
+
+cd api
+npm run dev
