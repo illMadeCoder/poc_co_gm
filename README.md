@@ -1,68 +1,116 @@
 # Scrying.ai
 
-## Overview
-Scrying.ai is an AI-powered assistant that provides real-time suggestions and post-session summaries for tabletop role-playing games (TTRPGs). 
-We are in early development with an ambitious roadmap and are looking for contributors to join us, please reach out to our team if you're interested!
+Scrying.ai is an AI assistant designed to enhance tabletop role-playing games (TTRPGs) such as the popular *Dungeons & Dragons* franchise by providing real-time AI suggestions and post-session summaries.
 
-## Project Goals
-### App Features
-- Real-time AI TTRPG suggestions via voice transcription including:
-  - Hint at what happens next
-  - Rule assistance
-  - Random tables for items, monsters, events, etc.
-  - Scene description
-- Post Game Summaries including:
-  - Major events & plot points
-  - Plot Advancement
-  - Player & Character details
-  - 'When we last left our heroes' intro
-- SSO Authentication
-- Cross Platform:
-  - Browser 
-  - Discord
-  - Mobile
-- Client Side Hydration
-- ... more to come
+## Project Philosophy  
 
-### DevOps Goals
-Our DevOps strategy focuses on **automation, reliability, and scalable deployments** to support rapid development and continuous delivery.
+This open-source project was created as a reaction to the turbulent conditions of the market and is an adaption to the oncoming wave of AI products. It is to provide a space for people with diverse skill sets to come together and build something fun and useful, but most importantly, to collaborate and learn modern technology.  
 
-#### Continuous Integration & Deployment (CI/CD)
-- Automated builds, tests, and deployments for fast iteration.
-- Pull request validation with ephemeral environments.
-- Seamless integration with feature branching strategy.
+Our goal is to teach modern web development, DevOps practices, and AI integration while working on an open-source project that can serve as a portfolio piece.  
+Whether you're new to development or an industry expert, we want to help you gain experience, build confidence, and develop real-world stories that can be used in job interviews and beyond.  
 
-#### Ephemeral Environments
-- Dynamic test environments for each PR.
-- Automatic provisioning and teardown to optimize cloud resources.
-- Unique subdomains (`pr-123.scrying.ai`) for isolated testing.
+## Join the Project  
 
-#### Scalable & Safe Deployment
-- **Blue-Green or Canary Deployments** to minimize downtime.
-- Automatic rollback in case of failure.
-- Staged promotions from **Validation → Staging → Production**.
+We are in a pre-development phase and looking for contributors to start helping today.  
 
-#### Infrastructure as Code (IaC)
-- Kubernetes-based deployment for portability and scalability.
-- Terraform or Pulumi for reproducible cloud infrastructure.
-- Configuration management via Helm.
+We welcome any level of experience and will actively guide you in contributing as soon as possible. Whether you're a beginner or an expert, there's a place for you here.  
 
-#### Observability & Monitoring
-- Centralized logging (e.g., ELK, Loki, or CloudWatch).
-- Metrics and tracing (e.g., Prometheus + Grafana, OpenTelemetry).
-- Automated alerting for failures and anomalies.
+## The Project at a Glance  
 
+### AI-Integrated Web App Frontend  
+- Cross-platform support (browser, mobile, Discord plugin)  
+- AI-managed UI to dynamically adjust to the game master's needs  
+- AI response display UI with in-game contextual highlights  
+- Search engine optimized for discoverability  
+- SSO integration for persistent user sessions and multi-device support  
+- Potential billing integration for handling AI costs and premium features  
 
+### Modern DevOps Pipeline and Infrastructure  
+- Private Azure cloud infrastructure with secure networking  
+- CI/CD pipelines with ephemeral environments for seamless development  
+- Scalable & safe deployment strategies, including blue-green and canary deployments  
+- Infrastructure as code (IaC) for automated, repeatable infrastructure provisioning  
+- Observability & monitoring with Prometheus, Grafana, OpenTelemetry  
+- Automated scaling and cost optimization strategies  
 
-## Instructions to Get Started
-Early development real-time TTRPG AI PoC.
+### Machine Learning and Data Problems  
+- Transcribe and identify player voices to track dialogue and scene changes  
+- AI-assisted post-game data processing for summaries:  
+  - Session recap with major plot points  
+  - "When we last left our heroes" introduction  
+  - Player and character insights  
+  - Customizable session tags for easier review  
+- Real-time AI suggestions with contextual awareness:  
+  - Narrative hints (what happens next)  
+  - On-demand rule clarifications  
+  - Random tables (items, monsters, events)  
+  - AI-generated scene descriptions  
+  - UI management via a domain-specific language (determining what's most relevant to show the game master at any moment)  
+- Player behavior tracking and recommendation systems for enhancing session flow  
 
-```sh
-git clone https://github.com/ScryingLab/scrying.ai.git
+### Internal Tooling – Using AI to Solve Internal Problems Too  
+- GitHub issue tracking with AI-powered summarization and prioritization  
+- Discord bots for tracking internal conversations and improving feature discoverability  
+- Automated documentation generation  
+- AI-assisted PR review suggestions for contributors  
+- More to come…  
 
-cd vite-client 
-npm run dev
+This project is open source and licensed under the MIT License.  
 
-cd api
-npm run dev
-```
+---
+
+## Available Roles & How to Contribute  
+
+If you're looking for a way to plug into the project, here are some areas where we need help:  
+
+### Frontend  
+- Task Example: Implementing the game master dashboard UI and interactive AI responses  
+- Skills Involved: React, TypeScript, Tailwind CSS, WebSockets  
+- Nice to Have: Experience with UI/UX design for real-time applications  
+
+### Backend (Node.js + AI Pipelines)  
+- Task Example: Building API endpoints for AI-driven suggestions and storing game session data  
+- Skills Involved: Node.js, Express, OpenAI API, PostgreSQL  
+- Nice to Have: Knowledge of event-driven architecture and real-time communication  
+
+### DevOps & Cloud Infrastructure  
+- Task Example: Setting up automated CI/CD pipelines, maintaining cloud infrastructure, and securing deployments  
+- Skills Involved: Kubernetes, Terraform, GitHub Actions, Azure, Docker  
+- Nice to Have: Experience with cost optimization strategies and high-availability setups  
+
+### AI & NLP  
+- Task Example: Improving AI-driven descriptions and refining prompt engineering for contextual relevance  
+- Skills Involved: NLP, OpenAI API, Whisper, Vector Databases, Transformer Models  
+- Nice to Have: Experience with fine-tuning language models for domain-specific tasks  
+
+### Security  
+- Task Example: Implementing least privilege access controls, conducting penetration testing, securing AI-generated responses, and ensuring data privacy compliance  
+- Skills Involved: Cloud security, identity & access management (IAM), security best practices, OWASP  
+- Nice to Have: Experience with adversarial testing of AI-generated outputs  
+
+### Development Team Project Management  
+- Task Example: Documenting formal processes, GitHub issue tracking, defining milestones, project management, contributor onboarding & retention  
+- Skills Involved: Technical writing, project management, people management  
+- Nice to Have: Familiarity with open-source contribution workflows  
+
+### Quality Assurance  
+- Task Example: Regression testing, writing automated tests for AI interactions, ensuring stability in real-time processing  
+- Skills Involved: QA automation, Cypress, Jest, API testing tools  
+- Nice to Have: Experience testing AI-powered applications  
+
+### Internal Tooling  
+- Task Example: Building Discord bots for feature discoverability, mock data endpoints and configuration, AI-assisted issue tracking  
+- Skills Involved: General programming, Node.js, Python, Discord API  
+- Nice to Have: Experience with chatbots and automation  
+
+### Product  
+- Task Example: Defining user stories, pricing models, vendor integration points, balancing AI capabilities with game flow  
+- Skills Involved: TTRPG knowledge, AI pricing model knowledge, user research  
+- Nice to Have: Experience in game design and AI-driven storytelling  
+
+---
+
+We’d love to have you on the team! 
+Upon joining the Discord server, you’ll be asked to describe your interest in the project—any interest is good interest. Whether you want to code, learn, test, or just follow along, we welcome you.  
+
+Join us here: [Discord](https://discord.gg/m8yeFWCw)  
