@@ -8,9 +8,10 @@ This open-source project was created as a reaction to the turbulent conditions o
 
 Our goal is to model and teach **modern web development, DevOps practices, and AI integration** while working on a project that can serve as a **portfolio piece** for an independent contributor's career progression.  
 
-Whether you're new to development or an industry expert, we want to help you **gain experience, build confidence, and develop real-world stories** that can be used in job interviews and beyond.  
+Whether you're new to development or an industry expert, we want to help you **gain experience, build confidence, and develop real-world stories** that can be used in job interviews and beyond.
 
 Consider giving our small team a ⭐ if you resonate with the project!
+
 ---
 
 ## Join the Project  
