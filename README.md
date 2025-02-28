@@ -1,5 +1,3 @@
-Consider giving our small team a ⭐ if you resonate with the project!
-
 # Scrying.ai
 
 Scrying.ai is an AI assistant designed to aid tabletop role-playing games (TTRPGs) such as the popular *Dungeons & Dragons* franchise by providing real-time AI suggestions and post-session summaries.
@@ -12,6 +10,7 @@ Our goal is to model and teach **modern web development, DevOps practices, and A
 
 Whether you're new to development or an industry expert, we want to help you **gain experience, build confidence, and develop real-world stories** that can be used in job interviews and beyond.  
 
+Consider giving our small team a ⭐ if you resonate with the project!
 ---
 
 ## Join the Project  
