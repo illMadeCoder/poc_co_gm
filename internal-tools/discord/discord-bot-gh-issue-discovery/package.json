@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "discord.js": "^14.18.0",
+    "dotenv": "^16.4.7",
+    "octokit": "^4.1.2",
+    "openai": "^4.86.1"
+  }
+}
