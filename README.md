@@ -49,9 +49,8 @@ We’re in **pre-development** and need contributors of any skill level. You’l
 ---
 
 ## High-Level Architecture & Data Flow Diagram
-From bottom to top:
 ```mermaid
-flowchart BT
+flowchart TB
     subgraph Backend ["Backend Services"]
         direction TB
         Backend1["Database"]
@@ -62,13 +61,11 @@ flowchart BT
     subgraph API ["API"]
         direction TB
         API1["Process Transcript"]
-        API2["Mock API"]
     end
 
     subgraph Suggestion ["Suggestion Service"]
         direction TB
         Suggestion1["AI Service"]
-        Suggestion2["Mock Suggestions"]
     end
 
     subgraph Client ["Client"]
