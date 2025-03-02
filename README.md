@@ -4,7 +4,7 @@ Scrying.ai is an AI assistant for tabletop role-playing games (TTRPGs), such as 
 
 ---
 
-## Project Philosophy
+## Our Philosophy
 
 This project responds to market shifts and the emerging AI wave. It’s a collaborative space for diverse skill sets to learn modern web development, DevOps, and AI integration, culminating in a portfolio piece for contributors. We welcome all experience levels to build confidence, gain real-world skills, and craft interview-ready stories.
 
@@ -12,7 +12,7 @@ If you resonate with our vision, consider giving us a ⭐!
 
 ---
 
-## Join the Project
+## Join the Team
 
 We’re in **pre-development** and need contributors of any skill level. You’ll get quick guidance on how to start contributing immediately. If interested, read on or join our Discord.
 
@@ -49,7 +49,7 @@ We’re in **pre-development** and need contributors of any skill level. You’l
 ---
 
 ## High-Level Architecture & Data Flow Diagram
-
+From bottom to top:
 ```mermaid
 flowchart BT
     subgraph Backend ["Backend Services"]
