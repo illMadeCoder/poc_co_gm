@@ -39,8 +39,8 @@ We’re in **pre-development** and need contributors of any skill level. You’l
 - AI-assisted PR suggestions
 
 ### Modern DevOps & Cloud Infrastructure
-- GitOps Principals
-- SecOps Principals
+- GitOps Principles
+- SecOps Principles
 - CI/CD pipelines with ephemeral environments
 - Blue-green / canary deployment strategies
 - Infrastructure as Code (IaC)
