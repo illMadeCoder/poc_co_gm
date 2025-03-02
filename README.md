@@ -14,7 +14,9 @@ If you resonate with our vision, consider giving us a ⭐!
 
 ## Join the Team
 
-We’re in **pre-development** and need contributors of any skill level. You’ll get guidance on how to start contributing immediately. If interested, read on till the end.
+We’re in **pre-development** and need contributors of any skill level. You’ll get guidance on how to start contributing immediately. 
+
+If interested, read on till the end.
 
 ---
 
@@ -50,6 +52,7 @@ We’re in **pre-development** and need contributors of any skill level. You’l
 
 ## High-Level Architecture & Data Flow Diagram
 ```mermaid
+%%{ init: {"theme": "dark", "themeVariables": { "primaryColor": "#ff0000" }} }%%
 flowchart LR
     subgraph Backend ["Backend Services"]
         direction TB
