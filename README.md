@@ -50,7 +50,7 @@ We’re in **pre-development** and need contributors of any skill level. You’l
 
 ## High-Level Architecture & Data Flow Diagram
 ```mermaid
-flowchart TB
+flowchart LR
     subgraph Backend ["Backend Services"]
         direction TB
         Backend1["Database"]
