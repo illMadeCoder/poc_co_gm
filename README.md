@@ -15,9 +15,9 @@ If you resonate with our vision, consider giving us a ⭐!
 
 We’re in **pre-development** and need contributors of any skill level. You’ll get guidance on how to start contributing immediately. 
 
-Jump into our [Discord](https://discord.gg/m8yeFWCw) and tell us what interests you!
+Jump into our [Discord](https://discord.gg/m8yeFWCw) and tell us who referenced you (if any) and what interests you about the project.
 
-If you were referenced here by someone, please mention your name and who sent you.
+To get started check out our [Onboarding Guide](https://github.com/ScryingLab/scrying.ai/wiki/Onboarding)!
 
 ---
 
@@ -45,7 +45,7 @@ If you were referenced here by someone, please mention your name and who sent yo
 - GitOps Principles
 - SecOps Principles
 - CI/CD pipelines with ephemeral environments
-- Blue-green / canary deployment strategies
+- Blue-green/canary deployment strategies
 - Infrastructure as Code (IaC)
 - Monitoring & observability (Prometheus, Grafana)
 
