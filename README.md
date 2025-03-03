@@ -9,14 +9,15 @@ This project was sparked by recent market shifts and the emerging wave of AI tec
 
 If you resonate with our vision, consider giving us a ⭐!
 
-
 ---
 
 ## Join the Team
 
 We’re in **pre-development** and need contributors of any skill level. You’ll get guidance on how to start contributing immediately. 
 
-If interested, read on till the end.
+Jump into our [Discord](https://discord.gg/m8yeFWCw) and tell us what interests you!
+
+If you were referenced here by someone, please mention your name and who sent you.
 
 ---
 
@@ -135,14 +136,6 @@ There are many ways to contribute. Here are some highlights:
 - **Product Manager / Game Design**
   - Shape user stories, TTRPG-based AI flow, pricing  
   - *Skills:* TTRPG knowledge, AI pricing models  
-
----
-
-## Join Us
-
-We’d love to have you on the team! Jump into our [Discord](https://discord.gg/m8yeFWCw) and tell us what interests you—whether it’s coding, testing, or learning. 
-
-If you were referenced here by someone, please mention your name and who sent you.
 
 ---
 
