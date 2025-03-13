@@ -1,0 +1,21 @@
+name: scrying.ai client api continuous integration
+run-name: ${{ github.actor }} is running scrying.ai client api CI
+on:
+  workflow_dispatch:
+  pull_request:
+jobs:
+  api_ci:
+    name: continuous integration for node api
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        
+      - name: Install dependencies
+        run: npm install          
+        working-directory: api
+
+      - name: Build
+        run: npm run build          
+        working-directory: api        
+  
