@@ -51,7 +51,12 @@ io.on("connection", (socket) => {
   console.log("New client connected:", socket.id);
 
   // Receive prompt along with its unique ID from the client
-  socket.on("send_prompt", async ({ id, prompt }) => {
+  socket.on("send_prompt", async ({ id, prompt, mock }) => {
+    // if (mock) {
+    //   socket.emit("ai_response", suggestionMocks);
+    //   console.log({ action: "returned mock data", data: suggestionMocks });
+    //   return;
+    // }
     try {
       const response = await openai.chat.completions.create({
         model: "gpt-4",
@@ -60,10 +65,10 @@ io.on("connection", (socket) => {
           {
             role: "system",
             content:
-              "You are overhearing a game master running a Tabletop RPG game, briefly predict and provide creative ideas for what the game master might say next. You are limited to 20 tokens",
+              "You are overhearing a game master running a Tabletop RPG game, briefly predict and provide creative ideas for what the game master might say next. You are limited to 30 tokens.",
           },
         ],
-        max_tokens: 20,
+        max_tokens: 30,
         temperature: 0.8,
       });
 

@@ -1,8 +1,14 @@
+import { SendPromptData, SuggestionObj } from "suggestionTypes";
+
 export interface ServerToClientEvents {
   noArg: () => void;
   basicEmit: (a: number, b: string, c: Buffer) => void;
   withAck: (d: string, callback: (e: number) => void) => void;
-  ai_response: (data: AiResponseData) => void;
+  ai_response: (data: {
+    id: string;
+    response: any;
+  }) => void;
+  // ai_response: (data: SuggestionObj[]) => void;
 }
 
 export interface ClientToServerEvents {
@@ -17,14 +23,4 @@ export interface InterServerEvents {
 export interface SocketData {
   name: string;
   age: number;
-}
-
-export interface SendPromptData {
-  id: string;
-  prompt: string;
-}
-
-export interface AiResponseData {
-  id: string;
-  response: string | null;
 }
