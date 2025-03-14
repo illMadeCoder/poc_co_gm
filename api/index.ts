@@ -65,7 +65,7 @@ io.on("connection", (socket) => {
           {
             role: "system",
             content:
-              "You are overhearing a game master running a Tabletop RPG game, briefly predict and provide creative ideas for what the game master might say next. You are limited to 30 tokens. Dont exceed your token limit.",
+              "You are overhearing a game master running a Tabletop RPG game, briefly predict and provide creative ideas for what the game master might say next. You are limited to 30 tokens.",
           },
         ],
         max_tokens: 30,

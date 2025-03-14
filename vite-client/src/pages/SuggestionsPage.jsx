@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Container, Grid2, Typography } from "@mui/material";
 import useSpeechRecognition from "../hooks/useSpeechRecognition.js";
 import _ from "lodash";
 import SuggestionControlContainer from "../components/SuggestionControlContainer.jsx";
 import { SuggestionsContainer } from "../components/SuggestionsContainer.jsx";
-import useSuggestionApi from "../hooks/useSuggestionApi.js";
+import { useSuggestions } from "../providers/SuggestionsProvider.jsx";
 
 function SuggestionsPage() {
-  const { suggestionResponses, sendTranscriptForSuggestion } =
-    useSuggestionApi();
+  const { nonEmptySuggestions, getNewSuggestion } = useSuggestions();
   const [isRecording, setIsRecording] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [delayedTranscript, setDelayedTranscript] = useState("");
@@ -33,20 +32,15 @@ function SuggestionsPage() {
     }
   }, [listening]);
 
-  const nonEmptyResponses = useMemo(
-    () => suggestionResponses?.filter((r) => !_.isEmpty(r.response)),
-    [suggestionResponses],
-  );
-
   useEffect(() => {
-    if (nonEmptyResponses?.[0]?.prompt === transcript) {
+    if (nonEmptySuggestions?.[0]?.prompt === transcript) {
       clearTranscript();
       setDelayedTranscript("");
     }
-  }, [nonEmptyResponses]);
+  }, [nonEmptySuggestions]);
 
   const debouncedSendTranscript = useCallback(
-    _.debounce((transcript) => sendTranscriptForSuggestion(transcript), 2000, {
+    _.debounce((transcript) => getNewSuggestion(transcript), 2000, {
       trailing: true,
     }),
     [],

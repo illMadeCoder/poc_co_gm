@@ -1,18 +1,27 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { v4 as uuidv4 } from "uuid";
-import useSocket from "./useSocket.js";
+import { useSocket } from "./SocketProvider.jsx";
+import _ from "lodash";
 
-const useSuggestionApi = ({
-  namespace = "",
-  options = { withCredentials: true },
-} = {}) => {
-  const { emitEvent, listenEvent, removeEventListener } = useSocket({
-    namespace,
-    options,
-  });
+const SuggestionsContext = createContext(null);
 
-  const [suggestionResponses, setSuggestionResponses] = useState([]);
+export const SuggestionsProvider = ({ children }) => {
+  const { isConnected, emitEvent, listenEvent, removeEventListener } =
+    useSocket();
+  const [suggestions, setSuggestions] = useState([]);
   const latencyStartTimes = useRef({}); // Store start times by request ID
+
+  const nonEmptySuggestions = useMemo(
+    () => suggestions?.filter((r) => !_.isEmpty(r.response)),
+    [suggestions],
+  );
 
   useEffect(() => {
     if (listenEvent) {
@@ -28,7 +37,7 @@ const useSuggestionApi = ({
     if (transcript.trim() !== "") {
       const id = uuidv4(); // Unique ID for each request
       latencyStartTimes.current[id] = Date.now(); // Start time per request
-      setSuggestionResponses((prevResponses) => [
+      setSuggestions((prevResponses) => [
         { id, prompt: transcript, response: "", latency: null },
         ...prevResponses,
       ]);
@@ -36,7 +45,7 @@ const useSuggestionApi = ({
     }
   };
 
-  const sendTranscriptForSuggestion = (transcript) => {
+  const getNewSuggestion = (transcript) => {
     const promptRequestData = prepareTranscriptForPrompt(transcript);
     console.log("SEND PROMPT: ", promptRequestData);
     emitEvent("send_prompt", promptRequestData);
@@ -48,18 +57,27 @@ const useSuggestionApi = ({
     const startTime = latencyStartTimes.current[id] || endTime;
     const latency = ((endTime - startTime) / 1000).toFixed(2);
 
-    setSuggestionResponses((prevResponses) =>
+    setSuggestions((prevResponses) =>
       prevResponses.map((entry) =>
         entry.id === id ? { ...entry, response, latency } : entry,
       ),
     );
   };
 
-  return {
-    suggestionResponses,
-    latencyStartTimes,
-    sendTranscriptForSuggestion,
-  };
+  return (
+    <SuggestionsContext.Provider
+      value={{
+        suggestions,
+        nonEmptySuggestions,
+        latencyStartTimes,
+        getNewSuggestion,
+      }}
+    >
+      {children}
+    </SuggestionsContext.Provider>
+  );
 };
 
-export default useSuggestionApi;
+export const useSuggestions = () => {
+  return useContext(SuggestionsContext);
+};

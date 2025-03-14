@@ -26,12 +26,10 @@ export default function SuggestionItem(props) {
       </Grid2>
       <Grid2 container alignItems="flex-start">
         <Grid2 sx={{ pr: 1 }}>
-          <CommentIcon sx={{ color: "#9f9f9f", fontSize: 20 }} />
+          <CommentIcon sx={{ color: "grey.500", fontSize: 20 }} />
         </Grid2>
         <Grid2 size="grow">
-          <Typography sx={{ color: "#9f9f9f", fontStyle: "italic" }}>
-            {props.response.prompt}
-          </Typography>
+          <Typography variant="caption">{props.response.prompt}</Typography>
         </Grid2>
       </Grid2>
     </Grid2>

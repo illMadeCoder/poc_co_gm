@@ -1,4 +1,4 @@
-import {createTheme} from "@mui/material";
+import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
   palette: {
@@ -10,16 +10,16 @@ export const theme = createTheme({
       contrastText: "#041515",
     },
     background: {
-      // default: darken("#012020", 0.3),
       default: "#0d2020",
       paper: "rgb(30, 30, 30)",
-      // paper: darken("#272b2b", 0.5),
-    }
+    },
   },
   typography: {
-    h5: {
-      // fontFamily: "Work Sans"
-    }
+    caption: {
+      fontStyle: "italic",
+      fontSize: "1rem",
+      color: "#9e9e9e",
+    },
   },
   components: {
     MuiCssBaseline: {
@@ -30,5 +30,5 @@ export const theme = createTheme({
         },
       },
     },
-  }
+  },
 });

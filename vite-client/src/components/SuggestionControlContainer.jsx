@@ -1,5 +1,5 @@
 import React from "react";
-import { alpha, Button, Grid2, Paper, Typography } from "@mui/material";
+import { Button, Grid2, Paper, Typography } from "@mui/material";
 import StopIcon from "@mui/icons-material/Stop";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import * as PropTypes from "prop-types";
@@ -10,8 +10,6 @@ export default function SuggestionControlContainer(props) {
 
   const buttonStyles = {
     transition: "all 0.8s ease",
-    // transition: "transform 1s cubic-bezier(0.85, 0, 0.15, 1), border-radius 0.25s cubic-bezier(0.2, 0, 0.15, 1)",
-    // transition: "border-radius 1.25s cubic-bezier(0.83, 0, 0.17, 1), width 0.5s, min-width 0.5s",
     "&:focus": {
       outline: "none",
     },
@@ -33,27 +31,19 @@ export default function SuggestionControlContainer(props) {
         container
         justifyContent={props.show ? "space-between" : "center"}
         alignItems="center"
+        rowSpacing={1}
         ref={parent}
       >
-        <Grid2
-          container
-          justifyContent="flex-start"
-          // size={12}
-          sx={{ pt: 1, pb: 1, px: 1 }}
-        >
-          <Typography sx={{ color: alpha("#ffffff", 0.45) }}>
+        <Grid2 sx={{ px: 1 }}>
+          <Typography sx={{ color: "grey.400" }}>
             {props.show
               ? "Searching vast distances..."
               : 'To get suggestions, click "Begin Scrying"'}
           </Typography>
         </Grid2>
-        {/*{isRecording && <Grid2>*/}
-        {/*  <Typography sx={{visibility: "hidden"}}>Something here</Typography>*/}
-        {/*</Grid2>}*/}
         <Grid2 sx={{ pr: props.show ? 2 : 0 }}>
           <Button
             variant="contained"
-            // color={"error"}
             color={props.show ? "inherit" : "primary"}
             onClick={props.listen}
             sx={
@@ -71,9 +61,7 @@ export default function SuggestionControlContainer(props) {
             {props.show ? (
               <StopIcon sx={{ fontSize: 28 }} color="error" />
             ) : (
-              <AutoAwesomeIcon
-              // color={props.show ? "primary" : undefined}
-              />
+              <AutoAwesomeIcon />
             )}
             {!props.show && (
               <Typography sx={{ fontWeight: 600, pl: 1 }}>

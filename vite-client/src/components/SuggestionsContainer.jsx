@@ -5,14 +5,14 @@ import _ from "lodash";
 import { LoadingBarsIcon } from "./LoadingBars.jsx";
 import SuggestionItem from "./SuggestionItem.jsx";
 import * as PropTypes from "prop-types";
-import useSuggestionApi from "../hooks/useSuggestionApi.js";
+import { useSuggestions } from "../providers/SuggestionsProvider.jsx";
 
 export function SuggestionsContainer(props) {
   const [parent] = useAutoAnimate();
-  const { suggestionResponses } = useSuggestionApi();
-  const nonEmptyResponses = useMemo(
-    () => suggestionResponses?.filter((r) => !_.isEmpty(r.response)),
-    [suggestionResponses],
+  const { suggestions } = useSuggestions();
+  const nonEmptySuggestions = useMemo(
+    () => suggestions?.filter((r) => !_.isEmpty(r.response)),
+    [suggestions],
   );
 
   return (
@@ -28,22 +28,22 @@ export function SuggestionsContainer(props) {
       ref={parent}
       spacing={1.5}
     >
-      {(suggestionResponses?.[0]?.prompt !== props.delayedTranscript ||
-        _.isEmpty(suggestionResponses?.[0]?.response)) &&
+      {(suggestions?.[0]?.prompt !== props.delayedTranscript ||
+        _.isEmpty(suggestions?.[0]?.response)) &&
         !_.isEmpty(props.delayedTranscript) && (
           <Grid2 container>
             <Grid2>
-              <Typography sx={{ color: "#9f9f9f", fontStyle: "italic" }}>
+              <Typography variant="caption">
                 {props.delayedTranscript}
               </Typography>
             </Grid2>
             <Grid2>
-              <LoadingBarsIcon sx={{ color: "#9f9f9f" }} />
+              <LoadingBarsIcon sx={{ color: "grey.500" }} />
             </Grid2>
           </Grid2>
         )}
 
-      {nonEmptyResponses?.map((response) => (
+      {nonEmptySuggestions?.map((response) => (
         <SuggestionItem key={response.id} response={response} />
       ))}
     </Grid2>
